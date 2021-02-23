@@ -49,7 +49,8 @@ class Entitlement:
 
     @property
     def is_expired(self):
-        return self._expired_at is not None and self.to_ts() > self._expired_at
+        expired_date_plus_three_weeks = datetime.datetime.fromtimestamp(self._expired_at) + datetime.timedelta(days=0)
+        return self._expired_at is not None and self.to_ts() > expired_date_plus_three_weeks.timestamp()
 
     @property
     def is_valid(self):
