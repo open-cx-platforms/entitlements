@@ -30,6 +30,15 @@ class Model(models.Model):
         return self.__dict__['__ent'].content
 
     @property
+    def expired_at(self):
+        if '__ent' not in self.__dict__:
+            Model.load_data(self)
+
+        ent = self.__dict__['__ent']
+        ent_data = ent.to_dict()
+        return ent_data["expired_at"] if "expired_at" in ent_data else None
+
+    @property
     def is_valid(self):
         if '__ent' not in self.__dict__:
             Model.load_data(self)
